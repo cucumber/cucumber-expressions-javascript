@@ -38,6 +38,10 @@ describe(RegularExpression.name, () => {
     assert.deepEqual(match(/(\d+)/, "22"), [22])
   })
 
+  it("take into account non-capturing group", () => {
+    assert.deepEqual(match(/(?:.) (\d+) (.*)/, "head 22 tail"), [22, "tail"])
+  })
+
   it("transforms float without integer part", () => {
     assert.deepEqual(match(/(.*)/, ".22", ['float']), [0.22])
   })
