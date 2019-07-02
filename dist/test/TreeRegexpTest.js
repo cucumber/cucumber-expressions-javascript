@@ -21,17 +21,24 @@ describe('TreeRegexp', function () {
         assert_1.default.deepStrictEqual(group.children[0].children, []);
         assert_1.default.strictEqual(group.children[1].value, 'c');
     });
-    it("ignores `?:` as a non-capturing group", function () {
+    it('ignores `?:` as a non-capturing group', function () {
         var tr = new TreeRegexp_1.default(/a(?:b)(c)/);
-        var group = tr.match("abc");
-        assert_1.default.strictEqual(group.value, "abc");
+        var group = tr.match('abc');
+        assert_1.default.strictEqual(group.value, 'abc');
         assert_1.default.strictEqual(group.children.length, 1);
     });
-    it("ignores `?!` as a non-capturing group", function () {
+    it('ignores `?!` as a non-capturing group', function () {
         var tr = new TreeRegexp_1.default(/a(?!b)(.+)/);
-        var group = tr.match("aBc");
-        assert_1.default.strictEqual(group.value, "aBc");
+        var group = tr.match('aBc');
+        assert_1.default.strictEqual(group.value, 'aBc');
         assert_1.default.strictEqual(group.children.length, 1);
+    });
+    it('ignores `?=` as a non-capturing group', function () {
+        var tr = new TreeRegexp_1.default(/a(?=[b])(.+)/);
+        var group = tr.match('abc');
+        assert_1.default.strictEqual(group.value, 'abc');
+        assert_1.default.strictEqual(group.children.length, 1);
+        assert_1.default.strictEqual(group.children[0].value, 'bc');
     });
     it('matches optional group', function () {
         var tr = new TreeRegexp_1.default(/^Something( with an optional argument)?/);
